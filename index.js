@@ -38,8 +38,12 @@ exports.getActiveWindow = function(callback,repeats,interval){
   });
 
   //Obtain error response from script
+  let errorStr;
   ls.stderr.on("data",function(stderr){
-   throw stderr.toString();
+    errorStr += (errorStr || '') + stderr.toString();
+  });
+  ls.stderr.on("end",function(stderr){
+   throw new Error(errorStr);
   });
 
   ls.stdin.end();
