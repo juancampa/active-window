@@ -40,7 +40,7 @@ exports.getActiveWindow = function(callback,repeats,interval){
   //Obtain error response from script
   let errorStr;
   ls.stderr.on("data",function(stderr){
-    errorStr += (errorStr || '') + stderr.toString();
+    errorStr = (errorStr || '') + stderr.toString();
   });
   ls.stderr.on("end",function(stderr){
    throw new Error(errorStr);
